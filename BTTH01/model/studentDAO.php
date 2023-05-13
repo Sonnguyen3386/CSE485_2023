@@ -106,5 +106,37 @@ class StudentDAO
       }
       fclose($file);
   }
+  // Xóa sinh viên
+  public function delete($id)
+  {
+    // Lấy danh sách sinh viên
+    $students = $this->readData();
+
+    // Tìm sinh viên có id trùng với $id và xóa khỏi mảng students
+    foreach ($students as $key => $student) {
+      if ($student->getId() == $id) {
+        unset($students[$key]);
+        break;
+      }
+    }
+
+    // Mở file để ghi
+    $fp = fopen($this->file, 'w+');
+    if (!$fp) {
+      return false; // Không mở được file
+    }
+
+    // Ghi lại danh sách sinh viên sau khi xóa
+    fwrite($fp, "id,name,age,grade\n"); // Ghi lại dòng tiêu đề
+    foreach ($students as $student) {
+      $line = $student->getId() . ',' . $student->getName() . ',' . $student->getAge() . ',' . $student->getGrade() . "\n";
+      fwrite($fp, $line);
+    }
+
+    // Đóng file
+    fclose($fp);
+
+    return true;
+  }
 }
-  ?>
+  
