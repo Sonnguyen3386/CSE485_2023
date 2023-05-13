@@ -1,3 +1,12 @@
+<?php
+require_once './model/student.php';
+require_once './model/studentDAO.php';
+
+$studentDAO = new StudentDAO('student.txt');
+$studentDAO->readData();
+$students = $studentDAO->getAll();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
