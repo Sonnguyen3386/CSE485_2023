@@ -1,3 +1,29 @@
+<?php
+//lệnh bảo vệ
+session_start();
+
+// kiểm tra và cấp thẻ: tạo session
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $email = $_POST['email'];
+    $pass = $_POST['password'];
+
+    if ($email == 'admin@gmail.com' && $pass == 'admin') {
+        $_SESSION['isLogin'] = $email;
+        header("Location: admin.php");
+        exit();
+    } elseif ($email == 'user@gmail.com' && $pass == 'user') {
+        $_SESSION['isLogin'] = $email;
+        header("Location: ./app/view/student_view.php");
+        exit();
+    } else {
+        header("Location: index.php");
+        exit();
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,9 +32,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./app/style/css/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <title>Attendance</title>
+    <title>Điểm danh sinh viên</title>
 </head>
 
 <body>
@@ -20,17 +46,17 @@
                 </div>
                 <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                     <h1>Login</h1>
-                    <form>
+                    <form method="POST">
                         <!-- Email input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="form3Example3">Email address</label>
-                            <input type="email" id="form3Example3" class="form-control form-control-lg" placeholder="Enter a valid email address" />
+                            <input type="email" name="email" id="form3Example3" class="form-control form-control-lg" placeholder="Enter a valid email address" />
                         </div>
 
                         <!-- Password input -->
                         <div class="form-outline mb-3">
                             <label class="form-label" for="form3Example4">Password</label>
-                            <input type="password" id="form3Example4" class="form-control form-control-lg" placeholder="Enter password" />
+                            <input type="password" name="password" id="form3Example4" class="form-control form-control-lg" placeholder="Enter password" />
                         </div>
 
                         <div class="d-flex justify-content-between align-items-center">
@@ -44,7 +70,7 @@
                         </div>
 
                         <div class="text-center text-lg-start mt-4 pt-2">
-                            <button type="button" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+                            <button type="submit" name="login" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
                         </div>
 
                     </form>
