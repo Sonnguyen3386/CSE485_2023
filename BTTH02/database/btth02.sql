@@ -183,7 +183,7 @@ ALTER TABLE `attendance`
 --
 ALTER TABLE `classes`
   ADD CONSTRAINT `classes_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`),
-  ADD CONSTRAINT `classes_ibfk_2` FOREIGN KEY (`instructor_id`) REFERENCES `lecturers` (`lecturers_id`);
+  ADD CONSTRAINT `classes_ibfk_2` FOREIGN KEY (`lecturers_id`) REFERENCES `lecturers` (`lecturers_id`);
 
 --
 -- Các ràng buộc cho bảng `reports`
